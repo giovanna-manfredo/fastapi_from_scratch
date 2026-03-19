@@ -1,0 +1,17 @@
+[project]
+name = "fastapi-from-scratch"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Giovanna Manfredo",email = "giovannamanfredo.dev@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.14,<4.0"
+dependencies = [
+    "fastapi[standard] (>=0.135.1,<0.136.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
