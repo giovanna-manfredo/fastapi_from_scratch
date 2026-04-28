@@ -1,14 +1,24 @@
 from http import HTTPStatus
 
-from fastapi.testclient import TestClient
-
-from src.app import app
+from src.schemas import SchemaUser
 
 
-def test_root_should_return_ok_and_hello_world():
-    client = TestClient(app)
+def test_create_user(client):
+    response = client.post(
+        "/users",
+        json={"username": "alice", "email": "alice@example.com"},
+    )
+    assert response.status_code == HTTPStatus.CREATED
+    assert response.json() == {"username": "alice", "email": "alice@example.com"}
 
-    response = client.get("/")
 
+def test_read_users_with_users(client, user):
+    user_schema = SchemaUser.model_validate(user).model_dump()
+    response = client.get("/users/")
+    assert response.json() == [user_schema]
+
+
+def test_read_users(client):
+    response = client.get("/users")
     assert response.status_code == HTTPStatus.OK
-    assert response.json() == {"message": "Hello World!"}
+    assert response.json() == []
